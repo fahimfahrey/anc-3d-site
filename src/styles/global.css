@@ -1,0 +1,182 @@
+/* ============================================================
+   ICE PRIME PRO ANC — design tokens
+   Palette rationale: the product is a cold-named brand with a
+   hot-orange core. Cyan carries "silence / isolation / signal",
+   orange carries "power / bass / heat". Never used decoratively.
+   ============================================================ */
+
+:root {
+  /* ground */
+  --void: #05070c;
+  --carbon: #090d15;
+  --slab: #0e131d;
+  --steel: #1b2432;
+  --hairline: rgba(140, 168, 200, 0.14);
+
+  /* signal */
+  --flare: #ff6a12;
+  --ember: #ffa24d;
+  --ice: #6fd8ff;
+  --ice-deep: #1d90c8;
+
+  /* text */
+  --bone: #e9eef6;
+  --mute: #8a97ab;
+  --faint: #6b7a8f;
+
+  /* type */
+  --display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --body: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+
+  /* scale — perfect fourth on display, minor third on text */
+  --t-2xs: 0.6875rem;
+  --t-xs: 0.8125rem;
+  --t-sm: 0.9375rem;
+  --t-base: 1.0625rem;
+  --t-md: 1.25rem;
+  --t-lg: clamp(1.5rem, 2.4vw, 2rem);
+  --t-xl: clamp(2.25rem, 5vw, 3.75rem);
+  --t-2xl: clamp(3rem, 8.5vw, 7rem);
+  --t-hero: clamp(3.75rem, 15.5vw, 15rem);
+
+  /* metrics */
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --rail: 74px;
+  --shell: 1360px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+html {
+  background: var(--void);
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--body);
+  font-size: var(--t-base);
+  line-height: 1.6;
+  color: var(--bone);
+  background: var(--void);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--flare); color: #08090c; }
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+img { max-width: 100%; display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--ice);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- type primitives ---------- */
+
+.display {
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 116, 'wght' 850;
+  text-transform: uppercase;
+  line-height: 0.84;
+  letter-spacing: -0.035em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.display--hero {
+  font-size: var(--t-hero);
+  font-variation-settings: 'wdth' 122, 'wght' 900;
+  letter-spacing: -0.045em;
+}
+
+.display--xl { font-size: var(--t-2xl); }
+.display--lg { font-size: var(--t-xl); }
+
+.stat-num {
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 108, 'wght' 780;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+}
+
+.lede {
+  font-size: var(--t-md);
+  line-height: 1.55;
+  color: var(--mute);
+  max-width: 34ch;
+  margin: 0;
+  font-weight: 350;
+}
+
+.copy {
+  color: var(--mute);
+  max-width: 46ch;
+  font-weight: 350;
+  margin: 0;
+}
+
+.hot { color: var(--flare); }
+.cool { color: var(--ice); }
+
+/* ---------- layout ---------- */
+
+#root { position: relative; z-index: 1; }
+
+.stage-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.flow { position: relative; z-index: 2; pointer-events: none; }
+.flow a, .flow button, .flow input, .flow summary, .flow select { pointer-events: auto; }
+
+.panel {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: clamp(5rem, 12vh, 9rem) var(--gutter) clamp(5rem, 12vh, 9rem)
+    calc(var(--gutter) + var(--rail));
+}
+
+.panel__inner {
+  width: 100%;
+  max-width: var(--shell);
+  margin: 0 auto;
+}
+
+.grid12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 2.25rem);
+  align-items: center;
+}
+
+@media (max-width: 1080px) {
+  .panel { padding-left: var(--gutter); }
+  .grid12 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+
+/* ---------- reveal (one shared, scroll-linked) ---------- */
+
+.rise {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.rise.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise { opacity: 1; transform: none; transition: none; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
