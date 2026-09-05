@@ -11,12 +11,17 @@ export function Rail() {
   const readout = useRef()
   const meter = useRef()
   const last = useRef(-1)
+  const lastP = useRef(-1)
 
   useEffect(() => {
     let raf
     const tick = () => {
       const i = Math.min(CHAPTERS.length - 1, Math.max(0, Math.round(scroll.s)))
-      if (meter.current) meter.current.style.transform = `translateX(-50%) scaleY(${scroll.progress})`
+      const p = Math.round(scroll.progress * 400) / 400
+      if (meter.current && p !== lastP.current) {
+        lastP.current = p
+        meter.current.style.transform = `translateX(-50%) scaleY(${p})`
+      }
       if (i !== last.current) {
         last.current = i
         ticks.current.forEach((el, k) => {

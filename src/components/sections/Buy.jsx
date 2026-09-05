@@ -74,7 +74,14 @@ export function Buy() {
       <div className="shots">
         {SHOTS.map(([src, cap]) => (
           <figure key={src}>
-            <img src={src} alt={cap} loading="lazy" />
+            <img
+              src={src}
+              alt={cap}
+              loading="lazy"
+              decoding="async"
+              width="722"
+              height="542"
+            />
             <figcaption>{cap}</figcaption>
           </figure>
         ))}

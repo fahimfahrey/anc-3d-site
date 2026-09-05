@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { PointCloud } from './Points'
 import { scroll } from '../../lib/scroll'
+import { Q } from '../quality'
 
 /** Ambient particulate. Present the whole way down so the volume never
     reads as empty, but slow enough that it stays background. */
@@ -28,7 +29,7 @@ export function Dust() {
 
   return (
     <PointCloud
-      count={520}
+      count={Q.dust}
       color="#9fc4e8"
       size={0.028}
       opacity={0.22}

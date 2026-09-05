@@ -37,7 +37,7 @@ export function BatteryArc({ chapter = 2, ...props }) {
       group.current.visible = vis > 0.01
       group.current.rotation.z = state.clock.elapsedTime * 0.06
     }
-    if (!mesh.current) return
+    if (!mesh.current || vis <= 0.01) return
     const filled = fx.battery * SEGMENTS
     for (let i = 0; i < SEGMENTS; i++) {
       const lit = i < filled

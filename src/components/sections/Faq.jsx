@@ -6,7 +6,6 @@ export function Faq() {
       <div className="panel__inner">
         <div className="grid12">
           <div className="chapter rise col-wide">
-            <div className="chapter__scrim" aria-hidden="true" />
             <h2 className="display display--lg" style={{ marginBottom: '2rem' }}>
               Questions people ask
             </h2>

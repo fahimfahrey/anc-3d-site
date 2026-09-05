@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Stage } from './three/Stage'
 import { Nav } from './components/Nav'
 import { Rail } from './components/Rail'
+import { Veil } from './components/Veil'
 import { Hero } from './components/sections/Hero'
 import { Story } from './components/sections/Story'
 import { SpecSheet } from './components/sections/SpecSheet'
@@ -73,6 +74,7 @@ export default function App() {
         Skip to content
       </a>
       <Stage />
+      <Veil />
       <Nav />
       <Rail />
       <main className="flow">

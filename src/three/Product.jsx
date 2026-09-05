@@ -11,6 +11,7 @@ import { BatteryArc } from './fx/BatteryArc'
 import { VoiceWave } from './fx/VoiceWave'
 import { Devices } from './fx/Devices'
 import { C } from './materials'
+import { Q } from './quality'
 
 const smooth = (t) => t * t * (3 - 2 * t)
 const lerp = THREE.MathUtils.lerp
@@ -77,10 +78,10 @@ export function Product() {
         </group>
 
         {/* effects pinned to the hardware they explain */}
-        <NoiseField chapter={3} position={[-1.18, 0.35, 0.35]} />
+        <NoiseField chapter={3} count={Q.noise} position={[-1.18, 0.35, 0.35]} />
         <NoiseField
           chapter={8}
-          count={700}
+          count={Q.encNoise}
           color="#3f7fa8"
           position={[-1.18, -0.3, 0.9]}
           getCollapse={() => fx.mic}

@@ -7,7 +7,6 @@ export function Panel({ id, index, side = 'left', width = 'default', className =
       <div className="panel__inner">
         <div className="grid12">
           <div className={`chapter rise ${col} ${side === 'right' ? 'chapter--right' : ''}`}>
-            <div className="chapter__scrim" aria-hidden="true" />
             {children}
           </div>
         </div>
@@ -20,7 +19,7 @@ export function Kicker({ n, children }) {
   return (
     <p className="chapter__kicker">
       <i>{String(n).padStart(2, '0')}</i>
-      {children}
+      <span>{children}</span>
     </p>
   )
 }

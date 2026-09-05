@@ -15,8 +15,7 @@
   align-items: center;
   gap: clamp(1rem, 3vw, 2.5rem);
   padding: 0.9rem clamp(1rem, 3vw, 2rem);
-  background: linear-gradient(to bottom, rgba(5, 7, 12, 0.92), rgba(5, 7, 12, 0));
-  backdrop-filter: blur(2px);
+  background: linear-gradient(to bottom, rgba(5, 7, 12, 0.94), rgba(5, 7, 12, 0.7) 55%, rgba(5, 7, 12, 0));
   pointer-events: none;
 }
 .nav > * { pointer-events: auto; }
@@ -158,28 +157,56 @@
 
 .chapter { position: relative; }
 
-.chapter__scrim {
-  position: absolute;
-  inset: -14% -22% -14% -30%;
-  background: radial-gradient(
-    62% 62% at 30% 50%,
-    rgba(5, 7, 12, 0.92) 0%,
-    rgba(5, 7, 12, 0.7) 45%,
-    rgba(5, 7, 12, 0) 100%
-  );
+/* ---------- reading veil ---------- */
+
+.veil {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
   pointer-events: none;
-  z-index: -1;
+  contain: strict;
 }
-.chapter--right .chapter__scrim {
-  inset: -14% -30% -14% -22%;
+.veil__side {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.7s var(--ease);
+}
+.veil__side--left {
   background: radial-gradient(
-    62% 62% at 70% 50%,
-    rgba(5, 7, 12, 0.92) 0%,
-    rgba(5, 7, 12, 0.7) 45%,
-    rgba(5, 7, 12, 0) 100%
+    58% 76% at 24% 50%,
+    rgba(5, 7, 12, 0.95) 0%,
+    rgba(5, 7, 12, 0.78) 42%,
+    rgba(5, 7, 12, 0) 78%
+  );
+}
+.veil__side--right {
+  background: radial-gradient(
+    58% 76% at 76% 50%,
+    rgba(5, 7, 12, 0.95) 0%,
+    rgba(5, 7, 12, 0.78) 42%,
+    rgba(5, 7, 12, 0) 78%
   );
 }
 
+/* on a phone the stage sits behind the copy, so the veil runs bottom-up */
+@media (max-width: 900px) {
+  .veil__side--left,
+  .veil__side--right {
+    background: linear-gradient(
+      to bottom,
+      rgba(5, 7, 12, 0) 0%,
+      rgba(5, 7, 12, 0.78) 26%,
+      rgba(5, 7, 12, 0.93) 100%
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .veil__side { transition: none; }
+}
+
+.chapter--right 
 .chapter__kicker {
   display: flex;
   align-items: baseline;
@@ -503,6 +530,7 @@
 .foot {
   position: relative;
   z-index: 2;
+  overflow-x: clip;
   background: linear-gradient(
     to bottom,
     rgba(5, 7, 12, 0) 0%,
@@ -672,20 +700,6 @@
   .review { gap: 0.8rem; }
 }
 
-/* the stage sits behind the copy on phones, so the scrim has to carry it */
-@media (max-width: 900px) {
-  .chapter__scrim,
-  .chapter--right .chapter__scrim {
-    inset: -10% -40%;
-    background: linear-gradient(
-      to bottom,
-      rgba(5, 7, 12, 0) 0%,
-      rgba(5, 7, 12, 0.82) 18%,
-      rgba(5, 7, 12, 0.92) 100%
-    );
-  }
-}
-
 @media (max-width: 620px) {
   /* one compact row of headline numbers; the detail lives in the chapters */
   .statstrip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -715,3 +729,84 @@
   transition: transform 0.25s var(--ease);
 }
 .skip:focus-visible { transform: none; }
+
+/* ---------- short landscape (phones turned sideways, small laptops) ---------- */
+@media (max-height: 560px) and (orientation: landscape) {
+  .panel { padding-block: 2.8rem 1.6rem; }
+  /* a short, wide frame has no room for a soft radial: keep the veil to the
+     copy column so the product on the right stays lit */
+  .veil__side--left {
+    background: linear-gradient(
+      to right,
+      rgba(5, 7, 12, 0.95) 0%,
+      rgba(5, 7, 12, 0.82) 32%,
+      rgba(5, 7, 12, 0) 64%
+    );
+  }
+  .veil__side--right {
+    background: linear-gradient(
+      to left,
+      rgba(5, 7, 12, 0.95) 0%,
+      rgba(5, 7, 12, 0.82) 32%,
+      rgba(5, 7, 12, 0) 64%
+    );
+  }
+  .chapter .copy, .chapter .lede { font-size: var(--t-xs); line-height: 1.5; max-width: 56ch; }
+  .chapter__facts { gap: 0 1.2rem; margin-top: 0.8rem; padding-top: 0.6rem; }
+  .chapter__fact { min-width: 88px; }
+  .chapter__fact dt { font-size: 0.62rem; margin-bottom: 0.15rem; }
+  .chapter__fact dd { font-size: 0.84rem; }
+  .chapter__kicker { font-size: var(--t-2xs); }
+  .hero { padding-top: 3.6rem; padding-bottom: 1.4rem; }
+  .hero .display--hero { font-size: clamp(2.4rem, 8.5vw, 4.6rem); }
+  .hero__title .l1 { font-size: clamp(1.1rem, 3vw, 1.6rem); }
+  .hero__meta { margin-bottom: 0.6rem; font-size: var(--t-2xs); }
+  .hero__copy .lede { font-size: var(--t-sm); margin-bottom: 0.9rem; max-width: 46ch; }
+  .hero__copy .buy__actions { margin-top: 0.8rem; }
+  .price__now { font-size: clamp(1.3rem, 3vw, 1.7rem); }
+
+  .display--lg { font-size: clamp(1.35rem, 3.9vw, 2rem); }
+  .display--xl { font-size: clamp(1.9rem, 5.5vw, 3rem); }
+  .metric__n { font-size: clamp(2.1rem, 7.2vw, 3.4rem); }
+  .metric__u { font-size: clamp(0.9rem, 1.8vw, 1.2rem); }
+  .chapter .copy, .chapter .lede { font-size: var(--t-sm); }
+  .chapter__kicker { margin-bottom: 0.6rem; }
+  .chapter h2 { margin-bottom: 0.7rem; }
+  .chapter__facts { margin-top: 1rem; padding-top: 0.7rem; }
+  .chapter__fact dd { font-size: 0.92rem; }
+
+  .statstrip__v { font-size: 1.35rem; }
+  .statstrip__l { display: none; }
+  .statstrip__cell { padding: 0.6rem 0.6rem 0.2rem 0; }
+  .scrollcue { display: none; }
+
+  .nav { padding: 0.5rem 1rem; }
+  .nav__logo { width: 26px; height: 26px; }
+  .btn { padding: 0.5rem 0.8rem; font-size: 0.76rem; }
+
+  .faq summary { padding: 0.8rem 2.5rem 0.8rem 0; font-size: 1rem; }
+  .faq p { font-size: var(--t-xs); margin-bottom: 0.9rem; }
+  .foot { padding-block: clamp(3rem, 12vh, 5rem) 1.6rem; }
+}
+
+/* between phone and desktop the copy keeps to a column so the stage stays legible */
+@media (min-width: 700px) and (max-width: 1080px) and (orientation: landscape) {
+  .col-left, .col-right, .col-wide { max-width: 62%; }
+  .chapter--right { margin-left: auto; }
+  .veil__side--left {
+    background: linear-gradient(
+      to right,
+      rgba(5, 7, 12, 0.95) 0%,
+      rgba(5, 7, 12, 0.8) 36%,
+      rgba(5, 7, 12, 0) 70%
+    );
+  }
+  .veil__side--right {
+    background: linear-gradient(
+      to left,
+      rgba(5, 7, 12, 0.95) 0%,
+      rgba(5, 7, 12, 0.8) 36%,
+      rgba(5, 7, 12, 0) 70%
+    );
+  }
+}

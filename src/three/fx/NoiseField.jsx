@@ -31,6 +31,11 @@ export function NoiseField({
   }, [])
 
   const sim = useCallback((arr, d, t, dt, obj) => {
+    const vis = near(chapter, 1.15)
+    if (vis <= 0.004) {
+      if (obj.material) obj.material.opacity = 0
+      return false
+    }
     const collapse = getCollapse()
     const chaos = 1 - collapse
     for (let i = 0; i < d.r0.length; i++) {
@@ -44,7 +49,7 @@ export function NoiseField({
       arr[j + 2] = Math.sin(th) * Math.sin(ph) * (r + wob)
     }
     if (obj.material) {
-      obj.material.opacity = near(chapter, 1.15) * (1 - collapse) * 0.75
+      obj.material.opacity = vis * (1 - collapse) * 0.75
       obj.material.size = 0.05 + collapse * 0.02
     }
   }, [chapter, getCollapse])

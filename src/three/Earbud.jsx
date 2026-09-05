@@ -24,7 +24,9 @@ export function Earbud({ side = 1, teardown = false, ...props }) {
     const e = teardown ? fx.explode : 0
 
     /* shell dissolves so the stack inside can be read */
-    for (const m of shellMats.current) {
+    const shells = shellMats.current
+    for (let i = 0; i < shells.length; i++) {
+      const m = shells[i]
       m.opacity = 1 - 0.78 * e
       m.transparent = e > 0.005
       m.depthWrite = e < 0.4
@@ -56,8 +58,10 @@ export function Earbud({ side = 1, teardown = false, ...props }) {
       ancRing.current.material.opacity = ringOn * 0.85
       ancRing.current.scale.setScalar(1 + ringOn * 0.22 + Math.sin(t * 2) * 0.03 * ringOn)
     }
-    for (const m of mics.current) {
-      if (m) m.emissiveIntensity = 0.4 + fx.mic * (5 + Math.sin(t * 9) * 3)
+    const micGlow = 0.4 + fx.mic * (5 + Math.sin(t * 9) * 3)
+    for (let i = 0; i < mics.current.length; i++) {
+      const m = mics.current[i]
+      if (m) m.emissiveIntensity = micGlow
     }
   })
 

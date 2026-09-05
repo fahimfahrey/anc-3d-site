@@ -3,8 +3,9 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { fx } from '../state'
 import { near } from '../../lib/scroll'
+import { Q } from '../quality'
 
-const N = 150
+const N = Q.streaks
 
 /** 45ms, rendered as distance covered. Streaks run past the camera on the
     gaming beat and nowhere else. */

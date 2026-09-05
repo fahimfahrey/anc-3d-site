@@ -15,6 +15,7 @@ export function BassRings({ chapter = 4, ...props }) {
     const t = state.clock.elapsedTime
     const on = fx.bass
     if (group.current) group.current.visible = on > 0.01
+    if (on <= 0.01) return
     for (let i = 0; i < RINGS; i++) {
       const m = refs.current[i]
       if (!m) continue

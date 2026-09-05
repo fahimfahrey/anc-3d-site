@@ -17,18 +17,18 @@ export const PRODUCT = {
 
 /* The scroll story. Each id maps 1:1 to a 3D scene beat in src/three/beats.js */
 export const CHAPTERS = [
-  { id: 'hero', rail: 'Prime Pro ANC', readout: 'STANDBY' },
-  { id: 'unbox', rail: 'The case', readout: 'LID OPEN' },
-  { id: 'battery', rail: '80 hours', readout: '80H / 7-8H' },
-  { id: 'anc', rail: '45dB ANC', readout: '-45 dB' },
-  { id: 'bass', rail: '13mm drivers', readout: '13 MM x2' },
-  { id: 'water', rail: 'IPX5', readout: 'IPX5' },
-  { id: 'app', rail: 'App control', readout: 'ORIGINAL SOUND' },
-  { id: 'dual', rail: 'Dual device', readout: '2 LINKS' },
-  { id: 'enc', rail: '4-mic ENC', readout: '4 MIC ARRAY' },
-  { id: 'gaming', rail: 'Gaming mode', readout: '45 MS' },
-  { id: 'specs', rail: 'Full spec', readout: 'BT 6.0' },
-  { id: 'buy', rail: 'Order', readout: 'READY' },
+  { id: 'hero', side: 'none', rail: 'Prime Pro ANC', readout: 'STANDBY' },
+  { id: 'unbox', side: 'left', rail: 'The case', readout: 'LID OPEN' },
+  { id: 'battery', side: 'left', rail: '80 hours', readout: '80H / 7-8H' },
+  { id: 'anc', side: 'left', rail: '45dB ANC', readout: '-45 dB' },
+  { id: 'bass', side: 'left', rail: '13mm drivers', readout: '13 MM x2' },
+  { id: 'water', side: 'left', rail: 'IPX5', readout: 'IPX5' },
+  { id: 'app', side: 'left', rail: 'App control', readout: 'ORIGINAL SOUND' },
+  { id: 'dual', side: 'left', rail: 'Dual device', readout: '2 LINKS' },
+  { id: 'enc', side: 'right', rail: '4-mic ENC', readout: '4 MIC ARRAY' },
+  { id: 'gaming', side: 'left', rail: 'Gaming mode', readout: '45 MS' },
+  { id: 'specs', side: 'left', rail: 'Full spec', readout: 'BT 6.0' },
+  { id: 'buy', side: 'left', rail: 'Order', readout: 'READY' },
 ]
 
 export const HIGHLIGHTS = [

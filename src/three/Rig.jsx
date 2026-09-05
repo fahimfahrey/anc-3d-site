@@ -73,7 +73,10 @@ export function Rig() {
     }
 
     /* scalar channels */
-    for (const key of KEYS) fx[key] = THREE.MathUtils.lerp(a[key], b[key], t)
+    for (let k = 0; k < KEYS.length; k++) {
+      const key = KEYS[k]
+      fx[key] = THREE.MathUtils.lerp(a[key], b[key], t)
+    }
 
     /* scroll energy feeds the aberration and the streaks */
     fx.glitch = THREE.MathUtils.damp(

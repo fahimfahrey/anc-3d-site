@@ -3,8 +3,9 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { fx } from '../state'
 import { near } from '../../lib/scroll'
+import { Q } from '../quality'
 
-const BARS = 34
+const BARS = Q.bars
 
 /** What the four mics keep. The bar field is the voice the array locks on to;
     it stays steady while the surrounding noise cloud is thrown out. */
@@ -25,7 +26,7 @@ export function VoiceWave({ chapter = 8, ...props }) {
     const t = state.clock.elapsedTime
     const vis = near(chapter, 1.2)
     if (group.current) group.current.visible = vis > 0.01
-    if (!mesh.current) return
+    if (!mesh.current || vis <= 0.01) return
     for (let i = 0; i < BARS; i++) {
       const u = i / (BARS - 1)
       /* speech-shaped envelope: loud in the middle, tapered at the edges */

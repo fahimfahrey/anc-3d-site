@@ -22,6 +22,13 @@ export function Beam({ from, to, color = '#6fd8ff', offset = 0, strength = () =>
   useFrame((state) => {
     const t = state.clock.elapsedTime
     const s = strength()
+    if (s <= 0.01) {
+      if (tube.current) tube.current.visible = false
+      if (node.current) node.current.visible = false
+      return
+    }
+    if (tube.current) tube.current.visible = true
+    if (node.current) node.current.visible = true
     if (tube.current) tube.current.material.opacity = s * (0.28 + Math.sin(t * 2 + offset) * 0.1)
     if (node.current) {
       const p = ((t * 0.42 + offset) % 1)
